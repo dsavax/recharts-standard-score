@@ -101,18 +101,18 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({active, payload, label}) =
 };
 
 interface PvDotProps extends DotProps {
-  payload: Payload;
+  payload?: Payload;
 }
 
-const PvDot: React.FC<PvDotProps> = memo(({cx, cy, r = 4, payload}) => {
+const PvDot = memo(({cx, cy, r = 4, payload}: PvDotProps) => {
   if (typeof cx !== 'number' || typeof cy !== 'number') return null;
   return (
     <circle
       cx={cx}
       cy={cy}
       r={r}
-      fill={getZScoreColor(payload.zScore, pvZScoreThreshold)}
-      stroke={getZScoreColor(payload.zScore, pvZScoreThreshold)}
+      fill={getZScoreColor(payload?.zScore, pvZScoreThreshold)}
+      stroke={getZScoreColor(payload?.zScore, pvZScoreThreshold)}
     />
   );
 });
@@ -175,7 +175,7 @@ const App: React.FC = () => {
         dataKey="pv"
         stroke="url(#colorGradient)"
         strokeWidth={2}
-        dot={<PvDot />}
+        dot={(props: PvDotProps) => <PvDot {...props} />}
         activeDot={<PvDot r={6} />}
         connectNulls
         isAnimationActive={false}
